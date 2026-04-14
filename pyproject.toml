@@ -7,6 +7,7 @@ name = "python-intermediate-inflammation"
 version = "0.0.0"
 requires-python = ">=3.9"
 dependencies = [
+    "debugpy>=1.8.20",
     "matplotlib>=3.9.4",
     "numpy>=2.0.2",
     "ruff>=0.15.10",
