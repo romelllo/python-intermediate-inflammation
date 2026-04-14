@@ -3,8 +3,10 @@
 import numpy as np
 import numpy.testing as npt
 import pytest
+import tempfile
+import os
 
-from inflammation.models import daily_mean, daily_max, daily_min
+from inflammation.models import daily_mean, daily_max, daily_min, load_csv
 
 
 @pytest.mark.parametrize(
@@ -47,3 +49,23 @@ def test_daily_max(test_input, expected_result):
 def test_daily_min(test_input, expected_result):
     """Test that min function works correctly."""
     npt.assert_array_equal(daily_min(test_input), expected_result)
+
+
+def test_load_csv():
+    """Test that load_csv correctly loads a CSV file."""
+    # Create a temporary CSV file
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as f:
+        f.write("1,2,3\n")
+        f.write("4,5,6\n")
+        f.write("7,8,9\n")
+        temp_file = f.name
+
+    try:
+        # Load the CSV file
+        result = load_csv(temp_file)
+        expected = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+        npt.assert_array_equal(result, expected)
+    finally:
+        # Clean up the temporary file
+        os.unlink(temp_file)
