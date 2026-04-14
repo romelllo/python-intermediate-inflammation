@@ -20,4 +20,5 @@ packages = ["inflammation"]
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
+    "pytest-cov>=7.1.0",
 ]
